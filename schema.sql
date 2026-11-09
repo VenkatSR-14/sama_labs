@@ -70,3 +70,4 @@ drop trigger if exists on_profiles_updated on public.profiles;
 create trigger on_profiles_updated
   before update on public.profiles
   for each row execute function public.handle_updated_at();
+
