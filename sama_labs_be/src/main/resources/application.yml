@@ -5,8 +5,8 @@ spring:
   application:
     name: sama-labs-backend
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/postgres?sslmode=require}
-    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://aws-0-ap-southeast-2.pooler.supabase.com:5432/postgres?sslmode=require}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres.uvtboalwokvmsvzihtdf}
     password: ${SPRING_DATASOURCE_PASSWORD:#ApekshaSama}
     driver-class-name: org.postgresql.Driver
     hikari:
