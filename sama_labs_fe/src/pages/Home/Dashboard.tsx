@@ -10,7 +10,7 @@ import {
   Grid,
 } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import BrandEmblem from '../../components/common/BrandEmblem';
 import { useAuth } from '../../context/AuthContext';
 
@@ -103,7 +103,7 @@ export const Dashboard: React.FC = () => {
           >
             <Box>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1.5 }}>
-                <CheckCircleOutlineIcon sx={{ color: '#2E7D32' }} />
+                <CheckCircleIcon sx={{ color: '#2E7D32' }} />
                 <Typography variant="h6" sx={{ fontWeight: 600 }}>
                   Authentication Active
                 </Typography>
