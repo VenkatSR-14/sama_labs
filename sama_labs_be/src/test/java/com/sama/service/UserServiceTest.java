@@ -93,3 +93,4 @@ class UserServiceTest {
         assertEquals(sampleUser.getFullName(), profile.getFullName());
     }
 }
+

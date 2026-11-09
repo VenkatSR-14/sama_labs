@@ -47,3 +47,4 @@ class JwtUtilsTest {
         assertFalse(jwtUtils.validateToken(tamperedToken));
     }
 }
+

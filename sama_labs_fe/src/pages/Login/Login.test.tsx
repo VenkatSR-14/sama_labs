@@ -23,3 +23,4 @@ describe('Login Component', () => {
     expect(screen.getByRole('button', { name: /Create an account/i })).toBeInTheDocument();
   });
 });
+

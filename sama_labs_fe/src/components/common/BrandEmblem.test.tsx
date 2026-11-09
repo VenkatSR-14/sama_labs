@@ -10,3 +10,4 @@ describe('BrandEmblem Component', () => {
     expect(screen.getByText(/Equanimity • Clarity • Harmony/i)).toBeInTheDocument();
   });
 });
+
