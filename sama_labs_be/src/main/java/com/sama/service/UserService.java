@@ -35,8 +35,7 @@ public class UserService {
         User user = new User(
                 normalizedEmail,
                 passwordEncoder.encode(rawPassword),
-                fullName.trim()
-        );
+                fullName.trim());
 
         return userRepository.save(user);
     }
@@ -70,7 +69,6 @@ public class UserService {
                 user.getId(),
                 user.getEmail(),
                 user.getFullName(),
-                user.getRole()
-        );
+                user.getRole());
     }
 }

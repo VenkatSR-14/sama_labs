@@ -10,3 +10,4 @@ public class SamaLabsBackendApplication {
         SpringApplication.run(SamaLabsBackendApplication.class, args);
     }
 }
+

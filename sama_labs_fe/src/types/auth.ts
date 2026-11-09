@@ -12,3 +12,4 @@ export interface AuthErrorResponse {
   message: string;
   status?: number;
 }
+
