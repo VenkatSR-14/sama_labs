@@ -5,6 +5,7 @@ import com.sama.dto.LoginRequest;
 import com.sama.dto.SignupRequest;
 import com.sama.dto.UserProfileDto;
 import com.sama.service.AuthService;
+import com.sama.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +23,11 @@ import java.util.Map;
 public class AuthController {
 
     private final AuthService authService;
+    private final UserService userService;
 
-    public AuthController(AuthService authService) {
+    public AuthController(AuthService authService, UserService userService) {
         this.authService = authService;
+        this.userService = userService;
     }
 
     @PostMapping("/signup")
@@ -44,11 +47,10 @@ public class AuthController {
         if (userDetails == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        UserProfileDto profile = authService.getCurrentUserProfile(userDetails.getUsername());
+        UserProfileDto profile = userService.getUserProfileByEmail(userDetails.getUsername());
         return ResponseEntity.ok(profile);
     }
 
-    // Global exception handling for auth endpoints
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<Map<String, String>> handleBadCredentials(BadCredentialsException ex) {
         Map<String, String> error = new HashMap<>();
