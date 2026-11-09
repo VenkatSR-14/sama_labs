@@ -18,12 +18,15 @@ import {
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import BrandEmblem from '../../components/common/BrandEmblem';
+import { useAuth } from '../../context/AuthContext';
 
 interface SignupProps {
   onNavigateToLogin?: () => void;
 }
 
 export const Signup: React.FC<SignupProps> = ({ onNavigateToLogin }) => {
+  const { signup } = useAuth();
+
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -39,9 +42,8 @@ export const Signup: React.FC<SignupProps> = ({ onNavigateToLogin }) => {
     confirmPassword?: string;
     agreeTerms?: string;
   }>({});
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [signupSuccess, setSignupSuccess] = useState(false);
 
   const validate = (): boolean => {
     const newErrors: typeof errors = {};
@@ -84,17 +86,15 @@ export const Signup: React.FC<SignupProps> = ({ onNavigateToLogin }) => {
 
     if (!validate()) return;
 
-    setIsLoading(true);
+    setIsSubmitting(true);
 
     try {
-      // Simulate account registration
-      await new Promise((resolve) => setTimeout(resolve, 1400));
-      setSignupSuccess(true);
-      console.log('Account registered for:', { fullName, email });
-    } catch {
-      setErrorMessage('Unable to complete registration. Please try again.');
+      await signup(fullName, email, password);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Unable to complete registration. Please try again.';
+      setErrorMessage(message);
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -178,22 +178,6 @@ export const Signup: React.FC<SignupProps> = ({ onNavigateToLogin }) => {
             </Alert>
           )}
 
-          {signupSuccess && (
-            <Alert
-              severity="success"
-              sx={{
-                width: '100%',
-                mb: 2.5,
-                borderRadius: 2,
-                bgcolor: '#FFF8E1',
-                color: '#5D4037',
-                border: '1px solid #FFE082',
-              }}
-            >
-              Account created successfully! Welcome to Sāma.
-            </Alert>
-          )}
-
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -213,7 +197,7 @@ export const Signup: React.FC<SignupProps> = ({ onNavigateToLogin }) => {
               onChange={(e) => setFullName(e.target.value)}
               error={Boolean(errors.fullName)}
               helperText={errors.fullName}
-              disabled={isLoading}
+              disabled={isSubmitting}
             />
 
             <TextField
@@ -228,7 +212,7 @@ export const Signup: React.FC<SignupProps> = ({ onNavigateToLogin }) => {
               onChange={(e) => setEmail(e.target.value)}
               error={Boolean(errors.email)}
               helperText={errors.email}
-              disabled={isLoading}
+              disabled={isSubmitting}
             />
 
             <TextField
@@ -244,7 +228,7 @@ export const Signup: React.FC<SignupProps> = ({ onNavigateToLogin }) => {
               onChange={(e) => setPassword(e.target.value)}
               error={Boolean(errors.password)}
               helperText={errors.password}
-              disabled={isLoading}
+              disabled={isSubmitting}
               slotProps={{
                 input: {
                   endAdornment: (
@@ -277,7 +261,7 @@ export const Signup: React.FC<SignupProps> = ({ onNavigateToLogin }) => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               error={Boolean(errors.confirmPassword)}
               helperText={errors.confirmPassword}
-              disabled={isLoading}
+              disabled={isSubmitting}
               slotProps={{
                 input: {
                   endAdornment: (
@@ -337,7 +321,7 @@ export const Signup: React.FC<SignupProps> = ({ onNavigateToLogin }) => {
               fullWidth
               variant="contained"
               size="large"
-              disabled={isLoading}
+              disabled={isSubmitting}
               sx={{
                 mt: 2.5,
                 mb: 2.5,
@@ -345,7 +329,7 @@ export const Signup: React.FC<SignupProps> = ({ onNavigateToLogin }) => {
                 fontSize: '1rem',
               }}
             >
-              {isLoading ? (
+              {isSubmitting ? (
                 <CircularProgress size={24} sx={{ color: '#FFFFFF' }} />
               ) : (
                 'Create Account'
@@ -386,4 +370,3 @@ export const Signup: React.FC<SignupProps> = ({ onNavigateToLogin }) => {
 };
 
 export default Signup;
-
