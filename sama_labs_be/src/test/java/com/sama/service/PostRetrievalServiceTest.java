@@ -107,3 +107,4 @@ class PostRetrievalServiceTest {
         verify(postRepository).save(samplePost);
     }
 }
+

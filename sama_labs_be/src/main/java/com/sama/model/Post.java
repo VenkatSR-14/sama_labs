@@ -41,7 +41,8 @@ public class Post {
     private Instant updatedAt = Instant.now();
 
     // 1. No-Args Constructor (Required by JPA)
-    public Post() {}
+    public Post() {
+    }
 
     // 2. All-Args Constructor
     public Post(UUID id, String title, UUID userDetailsId, String imageUrl, Instant createdAt, Instant updatedAt) {
@@ -64,7 +65,8 @@ public class Post {
 
     @PrePersist
     protected void onCreate() {
-        if (this.createdAt == null) this.createdAt = Instant.now();
+        if (this.createdAt == null)
+            this.createdAt = Instant.now();
         this.updatedAt = Instant.now();
     }
 
